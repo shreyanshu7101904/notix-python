@@ -1,5 +1,5 @@
-from constants import URL_PATHS
-from exceptions import UrlPathException
+from .constants import URL_PATHS
+from .exceptions import UrlPathException
 
 
 def get_url(path_name: str) -> str:
