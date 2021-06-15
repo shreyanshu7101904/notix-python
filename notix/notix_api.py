@@ -5,7 +5,7 @@ from exceptions import UrlPathException
 def get_url(path_name: str) -> str:
     """
     Url builder function to create `Notix` Api url based on parameter
-    :param path_name: notix url path string
+    :param path_name: `Notix` url path string
     :return: url
     """
     try:
