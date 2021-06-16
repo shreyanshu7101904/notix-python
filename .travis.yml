@@ -1,0 +1,9 @@
+language: python
+python:
+  - "3.6"
+# command to install dependencies
+install:
+  - pip install -r requirements_dev.txt
+# command to run tests
+script:
+  - pytest --cov=notix tests/
