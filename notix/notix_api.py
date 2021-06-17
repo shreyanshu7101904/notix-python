@@ -34,7 +34,7 @@ class ResponseParser(BaseResponseParser):
     def __init__(self, response):
         self._response = response
 
-    def __str__(self):
+    def __repr__(self):
         return f"Status Code = {self._response.status_code}, message = {self._response.text}"
 
     def parse(self):
