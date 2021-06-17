@@ -88,3 +88,13 @@ class NotixApiTest(TestCase):
             send_notification = Notix(**self.app_config)
             send_notification.send_notification(data=data)
             self.assertNotEqual(500, send_notification_method.return_value["status_code"])
+
+    def test_remove_add_audience_with_pixel(self):
+        """check response from Notix.send_notification """
+        response = Response()
+        response.status_code = 200
+        pixel = "fake_pixel_value"
+        with patch.object(Notix, 'remove_add_audience_with_pixel', return_value=ResponseParser(response).parse()) as audience:
+            pixel_audience = Notix(**self.app_config)
+            pixel_audience.remove_add_audience_with_pixel(pixel=pixel)
+            self.assertEqual(200, audience.return_value["status_code"])
