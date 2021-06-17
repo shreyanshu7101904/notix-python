@@ -14,6 +14,7 @@ def get_url(path_name: str) -> str:
     Url builder function to create `Notix` Api url based on parameter
     :param path_name: `Notix` url path string
     :return: url
+    :raises UrlPathException
     """
     try:
         return NOTIX_URL + URL_PATHS[path_name]
@@ -54,17 +55,48 @@ class Notix(BaseNotix):
         self._params = {"app_id": self._app_id}
         self._header = {"Authorization-Token": token}
 
-    def send_notification(self, data) -> dict:
-        """
-        Notification sender method for notix class
-        :param data: dict as mentioned in notix docs https://docs.notix.co/api-send.html as request body
-        :return: dict
-        """
+    def _send_request(self, **kwargs) -> ResponseParser:
+        """Send api request to notix client"""
         response = self._request.request(
-            method="POST",
-            url=get_url("send"),
             params=self._params,
             headers=self._header,
-            json=data,
+            **kwargs
         )
         return ResponseParser(response).parse()
+
+    def send_notification(self, data) -> ResponseParser:
+        """
+        Notification sender method for notix class
+        :arg data: dict as mentioned in notix docs
+         https://docs.notix.co/api-send.html as request body
+        :return: dict
+        sample_data = {
+            "limit": int,
+            "message": {
+                "icon": str,
+                "image": "str",
+                "text": "str",
+                "title": "str",
+                "url": str,
+            },
+            "schedule": {},
+            "target": {}
+        }
+        """
+        return self._send_request(
+            method="POST",
+            url=get_url("send"),
+            json=data,
+        )
+
+    def add_audience(self, data:dict) -> ResponseParser:
+        """
+        Add audience label to already subscribe users
+        :param data: {"audience": "audience_identifier", "user":"user_identifier"}
+        :return: ResponseParser
+        """
+        return self._send_request(
+            method="POST",
+            url=get_url("audience"),
+            json=data
+        )
