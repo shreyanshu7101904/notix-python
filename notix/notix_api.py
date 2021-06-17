@@ -89,7 +89,7 @@ class Notix(BaseNotix):
             json=data,
         )
 
-    def add_audience(self, data:dict) -> ResponseParser:
+    def add_audience(self, data: dict) -> ResponseParser:
         """
         Add audience label to already subscribe users
         :param data: {"audience": "audience_identifier", "user":"user_identifier"}
@@ -97,6 +97,30 @@ class Notix(BaseNotix):
         """
         return self._send_request(
             method="POST",
-            url=get_url("audience"),
+            url=get_url("audience_add"),
             json=data
+        )
+
+    def delete_audience(self, data: dict) -> ResponseParser:
+        """
+        Delete audience label to already subscribe users
+        :param data: {"audience": "audience_identifier", "user":"user_identifier"}
+        :return: ResponseParser
+        """
+        return self._send_request(
+            method="POST",
+            url=get_url("delete_audience"),
+            json=data
+        )
+
+    def sync_subscribed_users(self, user: str):
+        """
+        Synchronize already subscribed users, Cookie Sync Pixel
+        :param user: User Identifier as described by publisher
+        :return: ResponseParser
+        """
+        self._params["user"] = user
+        return self._send_request(
+            method="GET",
+            url=get_url("sync_user"),
         )
