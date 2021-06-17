@@ -64,6 +64,13 @@ class Notix(BaseNotix):
         )
         return ResponseParser(response).parse()
 
+    def check_auth(self):
+        """
+        Check authorisation Token using notix andbox
+        :return: dict
+        """
+        return self._send_request()
+
     def send_notification(self, data) -> ResponseParser:
         """
         Notification sender method for notix class
@@ -123,4 +130,16 @@ class Notix(BaseNotix):
         return self._send_request(
             method="GET",
             url=get_url("sync_user"),
+        )
+
+    def remove_add_audience_with_pixel(self, pixel: str) -> ResponseParser:
+        """
+        Delete audience label to already subscribe users
+        :param pixel: Unique Pixel Identifier
+        :return: ResponseParser
+        """
+        self._params["px"] = pixel
+        return self._send_request(
+            method="GET",
+            url=get_url("retargeting"),
         )
