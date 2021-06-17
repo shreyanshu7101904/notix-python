@@ -8,6 +8,7 @@ NOTIX_URL = "http://notix.io/api"
 
 # Notix base Url
 
+
 def get_url(path_name: str) -> str:
     """
     Url builder function to create `Notix` Api url based on parameter
@@ -29,7 +30,6 @@ class BaseResponseParser:
 
 
 class ResponseParser(BaseResponseParser):
-
     def __init__(self, response):
         self._response = response
 
@@ -39,7 +39,7 @@ class ResponseParser(BaseResponseParser):
     def parse(self):
         return {
             "status_code": self._response.status_code,
-            "message": self._response.text
+            "message": self._response.text,
         }
 
 
@@ -51,12 +51,8 @@ class Notix(BaseNotix):
     def __init__(self, app_id, token):
         self._app_id = app_id
         self._request = request_module
-        self._params = {
-            "app_id": self._app_id
-        }
-        self._header = {
-            "Authorization-Token": token
-        }
+        self._params = {"app_id": self._app_id}
+        self._header = {"Authorization-Token": token}
 
     def send_notification(self, data) -> dict:
         """
@@ -69,7 +65,6 @@ class Notix(BaseNotix):
             url=get_url("send"),
             params=self._params,
             headers=self._header,
-            json=data
+            json=data,
         )
         return ResponseParser(response).parse()
-
