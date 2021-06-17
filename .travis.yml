@@ -7,3 +7,5 @@ install:
 # command to run tests
 script:
   - pytest --cov=notix tests/
+after_success:
+  - coveralls
