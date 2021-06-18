@@ -5,5 +5,5 @@ URL_PATHS = {
     "delete_audience": "/audience/delete",
     "sync_user": "/mt.gif",
     "retargeting": "/rtg.gif",
-    "check_auth": "/auth-check"
-    }
+    "check_auth": "/auth-check",
+}
