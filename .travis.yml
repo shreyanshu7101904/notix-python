@@ -12,7 +12,6 @@ install:
   - pip install -r requirements_dev.txt
   - pip install coveralls
 script:
-  - pre-commit run --all-files # run pre-commit
   - pytest --cov=notix tests/
 after_success:
   - coveralls
