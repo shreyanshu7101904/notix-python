@@ -58,9 +58,7 @@ class Notix(BaseNotix):
     def _send_request(self, **kwargs) -> ResponseParser:
         """Send api request to notix client"""
         response = self._request.request(
-            params=self._params,
-            headers=self._header,
-            **kwargs
+            params=self._params, headers=self._header, **kwargs
         )
         return ResponseParser(response).parse()
 
@@ -102,11 +100,7 @@ class Notix(BaseNotix):
         :param data: {"audience": "audience_identifier", "user":"user_identifier"}
         :return: ResponseParser
         """
-        return self._send_request(
-            method="POST",
-            url=get_url("audience_add"),
-            json=data
-        )
+        return self._send_request(method="POST", url=get_url("audience_add"), json=data)
 
     def delete_audience(self, data: dict) -> ResponseParser:
         """
@@ -115,9 +109,7 @@ class Notix(BaseNotix):
         :return: ResponseParser
         """
         return self._send_request(
-            method="POST",
-            url=get_url("delete_audience"),
-            json=data
+            method="POST", url=get_url("delete_audience"), json=data
         )
 
     def sync_subscribed_users(self, user: str):
