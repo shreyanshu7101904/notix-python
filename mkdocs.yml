@@ -1,0 +1,13 @@
+site_name: notix-push-notification
+site_url: https://example.com/
+theme: readthedocs
+markdown_extensions:
+  - markdown.extensions.admonition
+nav:
+  - Notix Python: index.md
+  - Notix Api:
+      - get_url: notix/notix.md
+      - Notix: notix/notix.md
+      - ResponseParser: notix/notix.md
+  - Exceptions: exceptions/exceptions.md
+  - Constants: constants/constant.md
