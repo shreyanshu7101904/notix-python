@@ -18,6 +18,9 @@ theme:
       lang: en
 markdown_extensions:
   - markdown.extensions.admonition
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - meta
 nav:
   - Notix Python: index.md
   - 'Api Reference':
