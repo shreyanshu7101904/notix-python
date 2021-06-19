@@ -3,8 +3,6 @@ site_url: https://notix-python.readthedocs.io
 theme: readthedocs
 markdown_extensions:
   - markdown.extensions.admonition
-  - pymdownx.highlight
-  - pymdownx.superfences
   - meta
 nav:
   - Notix Python: index.md
