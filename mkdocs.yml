@@ -1,5 +1,5 @@
-site_name: notix-push-notification
-site_url: https://example.com/
+site_name: notix-python
+site_url: https://shreyanshu7101904.github.io/notix-python/
 theme: 
   name: material
   palette:
