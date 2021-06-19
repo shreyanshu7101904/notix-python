@@ -34,4 +34,4 @@ print(resp)
 ```
 
 ## Documentation
-For full documentation check [notix-python.readthedocs.io](notix-python.readthedocs.io) 
+For full documentation check [Here](notix-python.readthedocs.io) 
