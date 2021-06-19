@@ -1,13 +1,30 @@
 site_name: notix-push-notification
 site_url: https://example.com/
-theme: readthedocs
+theme: 
+  name: material
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/lightbulb
+        name: Switch to light mode
+  features:
+    - navigation.tracking
+  plugins:
+    - search:
+      lang: en
 markdown_extensions:
   - markdown.extensions.admonition
 nav:
   - Notix Python: index.md
-  - Notix Api:
-      - get_url: notix/notix.md
-      - Notix: notix/notix.md
-      - ResponseParser: notix/notix.md
-  - Exceptions: exceptions/exceptions.md
+  - 'Api Reference':
+        - 'get_url': notix/get_url.md
+        - 'Notix class': notix/notix_api.md
+        - 'ResponseParser class': notix/response_parser.md
   - Constants: constants/constant.md
+  - Exceptions: exceptions/exceptions.md
+extra:
+  generator: false
