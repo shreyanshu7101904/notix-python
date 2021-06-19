@@ -1,21 +1,6 @@
 site_name: notix-python
-site_url: https://shreyanshu7101904.github.io/notix-python/
-theme: 
-  name: material
-  palette:
-    - scheme: default
-      toggle:
-        icon: material/lightbulb-outline
-        name: Switch to dark mode
-    - scheme: slate
-      toggle:
-        icon: material/lightbulb
-        name: Switch to light mode
-  features:
-    - navigation.tracking
-  plugins:
-    - search:
-      lang: en
+site_url: https://notix-python.readthedocs.io
+theme: readthedocs
 markdown_extensions:
   - markdown.extensions.admonition
   - pymdownx.highlight
@@ -29,5 +14,3 @@ nav:
         - 'ResponseParser class': notix/response_parser.md
   - Constants: constants/constant.md
   - Exceptions: exceptions/exceptions.md
-extra:
-  generator: false
