@@ -94,20 +94,28 @@ class Notix(BaseNotix):
             json=data,
         )
 
-    def add_audience(self, data: dict) -> ResponseParser:
+    def add_audience(self, audience, user) -> ResponseParser:
         """
         Add audience label to already subscribe users
         :param data: {"audience": "audience_identifier", "user":"user_identifier"}
         :return: ResponseParser
         """
+        data = {
+            "audience": audience,
+            "user": user,
+        }
         return self._send_request(method="POST", url=get_url("audience_add"), json=data)
 
-    def delete_audience(self, data: dict) -> ResponseParser:
+    def delete_audience(self, audience, user) -> ResponseParser:
         """
         Delete audience label to already subscribe users
         :param data: {"audience": "audience_identifier", "user":"user_identifier"}
         :return: ResponseParser
         """
+        data = {
+            "audience": audience,
+            "user": user,
+        }
         return self._send_request(
             method="POST", url=get_url("delete_audience"), json=data
         )
