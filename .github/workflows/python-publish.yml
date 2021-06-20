@@ -9,8 +9,9 @@
 name: Upload Package to PyPi
 
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - master
 
 jobs:
   deploy:
