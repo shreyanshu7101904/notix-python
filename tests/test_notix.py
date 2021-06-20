@@ -136,6 +136,7 @@ class NotixRealScenarios(TestCase):
 
     def test_auth_check(self):
         resp = self.notix.check_auth()
+        self.assertEqual(True, "success" in repr(resp).lower())
         self.assertEqual(200, resp["status_code"])
 
     def test_send_notification(self):
