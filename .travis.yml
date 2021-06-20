@@ -13,10 +13,3 @@ script:
   - pytest --cov=notix tests/
 after_success:
   - coveralls
-
-deploy:
-  provider: pypi
-  username: "__token__"
-  password: $TOKEN
-  on:
-    branch: main
