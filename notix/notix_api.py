@@ -69,7 +69,10 @@ class Notix(BaseNotix):
         Check authorisation Token using notix andbox
         :return: dict
         """
-        return self._send_request()
+        return self._send_request(
+            method="GET",
+            url=get_url("check_auth"),
+        )
 
     def send_notification(self, message: dict, limit: int = None, schedule: dict = None, target: dict = None) -> ResponseParser:
         """
