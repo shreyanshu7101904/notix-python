@@ -123,6 +123,9 @@ class NotixApiTest(TestCase):
 
 
 class NotixRealScenarios(TestCase):
+    """
+    Testcases based on real app_id and token with 0 Subscribed users
+    """
     def setUp(self) -> None:
         try:
             self.app_id = os.environ["APP_ID"]
@@ -135,3 +138,44 @@ class NotixRealScenarios(TestCase):
         resp = self.notix.check_auth()
         self.assertEqual(200, resp["status_code"])
 
+    def test_send_notification(self):
+        """check response from Notix.send_notification"""
+        data = {
+            "title": "Sample title",
+            "url": "https://docs.notix.co/example-icon.png",
+            "icon": "https://docs.notix.co/example-icon.png",
+            "text": "Hi there",
+            "image": "https://docs.notix.co/example-icon.png",
+        }
+        resp = self.notix.send_notification(message=data)
+        self.assertEqual(404, resp["status_code"])
+
+    def test_remove_add_audience_with_pixel(self):
+        """check response from Notix.remove_add_audience"""
+        pixel = "fake_pixel_value"
+        resp = self.notix.remove_add_audience_with_pixel(pixel=pixel)
+        self.assertEqual(404, resp["status_code"])
+
+    def test_add_audience(self):
+        user = "test@test.com"
+        resp = self.notix.add_audience(user=user, audience="test_audience")
+        self.assertEqual(400, resp["status_code"])
+
+    def test_remove_audience(self):
+        user = "test@test.com"
+        resp = self.notix.delete_audience(user=user, audience="test_audience")
+        self.assertEqual(404, resp["status_code"])
+
+    def test_sync_subscribed_users(self):
+        user = "test@test.com"
+        resp = self.notix.sync_subscribed_users(user=user)
+        self.assertEqual(404, resp["status_code"])
+
+    def test_send_method(self):
+        url = "https://docs.notix.co/example-icon.png"
+        method = "GET"
+        resp = self.notix._send_request(
+            url=url,
+            method=method
+        )
+        self.assertEqual(404, resp["status_code"])

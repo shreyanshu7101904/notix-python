@@ -54,7 +54,7 @@ class Notix(BaseNotix):
     def __init__(self, app_id, token):
         self._app_id = app_id
         self._request = request_module
-        self._params = {"app_id": self._app_id}
+        self._params = {"app": self._app_id}
         self._header = {"Authorization-Token": token}
 
     def _send_request(self, **kwargs) -> ResponseParser:
