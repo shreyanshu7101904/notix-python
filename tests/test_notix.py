@@ -1,6 +1,6 @@
-from unittest import TestCase
-from unittest.mock import MagicMock, patch
-
+from unittest import TestCase, skip
+from unittest.mock import patch
+import os
 from requests import Response
 
 from notix.exceptions import UrlPathException
@@ -30,7 +30,7 @@ class ResponseParserTest(TestCase):
         """test bad response code"""
         self.response.status_code = 400
         resp = ResponseParser(self.response).parse()
-        self.assertEqual("{'status_code': 400, 'message': ''}", str(resp))
+        self.assertEqual("{'status_code': 400, 'message': ''}", resp.__repr__())
         self.assertTrue("400", resp["status_code"])
 
     def test_success_response_code(self):
@@ -49,13 +49,13 @@ class NotixApiTest(TestCase):
         response = Response()
         response.status_code = 200
         with patch.object(
-            Notix, "check_auth", return_value=ResponseParser(response).parse()
+                Notix, "check_auth", return_value=ResponseParser(response).parse()
         ) as auth_method:
             auth = Notix(**self.app_config)
             auth.check_auth()
             self.assertEqual(200, auth_method.return_value["status_code"])
         with patch.object(
-            Notix, "check_auth", return_value=ResponseParser(response).parse()
+                Notix, "check_auth", return_value=ResponseParser(response).parse()
         ) as auth_method:
             auth = Notix(**self.app_config)
             auth.check_auth()
@@ -67,7 +67,7 @@ class NotixApiTest(TestCase):
         response.status_code = 200
         params = {"url": "fake_url", "method": "GET", "json": {}}
         with patch.object(
-            Notix, "_send_request", return_value=ResponseParser(response).parse()
+                Notix, "_send_request", return_value=ResponseParser(response).parse()
         ) as send_request:
             send_request_ = Notix(**self.app_config)
             send_request_._send_request(**params)
@@ -79,14 +79,14 @@ class NotixApiTest(TestCase):
         response.status_code = 200
         data = {"message": {"title": "Sample title", "url": "Sample url"}}
         with patch.object(
-            Notix, "send_notification", return_value=ResponseParser(response).parse()
+                Notix, "send_notification", return_value=ResponseParser(response).parse()
         ) as send_notification_method:
             send_notification = Notix(**self.app_config)
             send_notification.send_notification(data=data)
             self.assertEqual(200, send_notification_method.return_value["status_code"])
 
         with patch.object(
-            Notix, "send_notification", return_value=ResponseParser(response).parse()
+                Notix, "send_notification", return_value=ResponseParser(response).parse()
         ) as send_notification_method:
             send_notification = Notix(**self.app_config)
             send_notification.send_notification(data=data)
@@ -100,10 +100,38 @@ class NotixApiTest(TestCase):
         response.status_code = 200
         pixel = "fake_pixel_value"
         with patch.object(
-            Notix,
-            "remove_add_audience_with_pixel",
-            return_value=ResponseParser(response).parse(),
+                Notix,
+                "remove_add_audience_with_pixel",
+                return_value=ResponseParser(response).parse(),
         ) as audience:
             pixel_audience = Notix(**self.app_config)
             pixel_audience.remove_add_audience_with_pixel(pixel=pixel)
             self.assertEqual(200, audience.return_value["status_code"])
+
+    def test_method_send_request(self):
+        """check response from Notix.send_notification"""
+        response = Response()
+        response.status_code = 200
+        with patch.object(
+                Notix,
+                "_send_request",
+                return_value=ResponseParser(response).parse(),
+        ) as resp_ob:
+            resp = Notix(**self.app_config)
+            res = resp._send_request(url="fake_url")
+            self.assertEqual(res["status_code"], resp_ob.return_value["status_code"])
+
+
+class NotixRealScenarios(TestCase):
+    def setUp(self) -> None:
+        try:
+            self.app_id = os.environ["APP_ID"]
+            self.token = os.environ["TOKEN"]
+            self.notix = Notix(app_id=self.app_id, token=self.token)
+        except KeyError:
+            self.skipTest("Envirnoment not set")
+
+    def test_auth_check(self):
+        resp = self.notix.check_auth()
+        self.assertEqual(200, resp["status_code"])
+
