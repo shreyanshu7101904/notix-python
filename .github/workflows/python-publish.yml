@@ -11,7 +11,7 @@ name: Upload Package to PyPi
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
