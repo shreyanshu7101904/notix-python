@@ -9,7 +9,7 @@ setup(
     version="1.0.0",
     description="Python Notix Push notification wrapper",
     author="Shreyanshu Shankar",
-    long_description_content_type=current_dir,
+    long_description_content_type=long_description,
     author_email="shreyanshu7101904@gmail.com",
     url="https://github.com/shreyanshu7101904/notix-push-notification",
     packages=find_packages(include=["notix"]),
