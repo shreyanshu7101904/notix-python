@@ -9,7 +9,7 @@ A python wrapper for [Notix](https://notix.co/) **Push Notification**.
 ## Installation
 Use pip to install latest package from PyPI.
 ``` 
-pip install notix-python-wrapper
+pip install notix-python
 ```
 ## Usage
 To use this package
