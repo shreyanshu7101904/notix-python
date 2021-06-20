@@ -31,6 +31,8 @@ class BaseResponseParser:
 
 
 class ResponseParser(BaseResponseParser):
+    """Response Parser class to Parse Notix Api Response"""
+
     def __init__(self, response):
         self._response = response
 
@@ -52,7 +54,7 @@ class Notix(BaseNotix):
     def __init__(self, app_id, token):
         self._app_id = app_id
         self._request = request_module
-        self._params = {"app_id": self._app_id}
+        self._params = {"app": self._app_id}
         self._header = {"Authorization-Token": token}
 
     def _send_request(self, **kwargs) -> ResponseParser:
@@ -67,27 +69,27 @@ class Notix(BaseNotix):
         Check authorisation Token using notix andbox
         :return: dict
         """
-        return self._send_request()
+        return self._send_request(
+            method="GET",
+            url=get_url("check_auth"),
+        )
 
-    def send_notification(self, data) -> ResponseParser:
+    def send_notification(self, message: dict, limit: int = None, schedule: dict = None, target: dict = None) -> ResponseParser:
         """
         Notification sender method for notix class
-        :arg data: dict as mentioned in notix docs
-         https://docs.notix.co/api-send.html as request body
+        for full params visit here https://docs.notix.co/api-send.html
+        :arg message : dict containing message details as described in api docs
+        :arg limit : int pass int value for limiting message sent to subscribers
+        :arg schedule : dict schedule object as described in notix api docs
+        :arg target : dict containing audience targeting info as described in docs
         :return: dict
-        sample_data = {
-            "limit": int,
-            "message": {
-                "icon": str,
-                "image": "str",
-                "text": "str",
-                "title": "str",
-                "url": str,
-            },
-            "schedule": {},
-            "target": {}
-        }
         """
+        data = {
+            "message": message,
+            **({"limit": limit} if limit else {}),
+            **({"schedule": schedule} if schedule else {}),
+            **({"target": target} if target else {}),
+        }
         return self._send_request(
             method="POST",
             url=get_url("send"),

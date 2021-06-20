@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 
 setup(
-    name="notix-push-notification",
+    name="notix-python",
     version="0.0.1",
     description="Python Notix Push notification wrapper",
     author="Shreyanshu Shankar",
