@@ -3,7 +3,7 @@ from unittest.mock import patch
 import os
 from requests import Response
 
-from notix.exceptions import UrlPathException
+from notix.exceptions import UrlPathException, EnvironmentNotSet
 from notix.notix_api import Notix, ResponseParser, get_url
 
 
@@ -43,6 +43,11 @@ class NotixApiTest(TestCase):
     """Notix Class Test Cases"""
 
     app_config = {"app_id": "fake_app_id", "token": "fake_app_token"}
+
+    def test_environment_not_set(self):
+        # ob = Notix()
+        # self.assertEqual(True, ob.check_auth())
+        self.assertRaises(EnvironmentNotSet, Notix)
 
     def test_check_auth(self):
         """check response from Notix.check_auth i"""
