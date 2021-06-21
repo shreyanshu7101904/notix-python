@@ -6,7 +6,7 @@ with open(path.join(current_dir, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name="notix-python",
-    version="1.0.0",
+    version="0.1.0",
     description="Python Notix Push notification wrapper",
     author="Shreyanshu Shankar",
     long_description=long_description,
