@@ -1,7 +1,7 @@
 import requests as request_module
-
+from os import environ
 from .constants import URL_PATHS
-from .exceptions import UrlPathException
+from .exceptions import UrlPathException, EnvironmentNotSet
 
 NOTIX_URL = "http://notix.io/api"
 
@@ -51,11 +51,19 @@ class Notix(BaseNotix):
     Notix class
     """
 
-    def __init__(self, app_id, token):
-        self._app_id = app_id
+    def __init__(self, app_id: str = None, token: str = None):
         self._request = request_module
+        if app_id and token:
+            self._app_id = app_id
+            self._token = token
+        else:
+            try:
+                self._app_id = environ["APP_ID"]
+                self._token = environ["TOKEN"]
+            except KeyError:
+                raise EnvironmentNotSet
         self._params = {"app": self._app_id}
-        self._header = {"Authorization-Token": token}
+        self._header = {"Authorization-Token": self._token}
 
     def _send_request(self, **kwargs) -> ResponseParser:
         """Send api request to notix client"""

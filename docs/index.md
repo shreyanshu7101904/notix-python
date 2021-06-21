@@ -35,12 +35,13 @@ message = {
     
 resp = notix_object.send_notification(message)
 
-print(response)
+print(resp)
 ```
 !!! Note
     To get **app_id** and **token** kindly visit on [Notix](https://notix.co) add your website.
     
     Create your api token [here](https://app.notix.co/auth/apiAccess).
+    You can set Envirnoment Variable as **APP_ID** and **TOKEN**.
 
 * `message` - Message Contents **type dict**.
     * `icon` - Url of small image displayed in Push Notification **type str**.
